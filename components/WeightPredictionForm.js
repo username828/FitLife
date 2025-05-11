@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import { apiUrl } from './server';
 const genderOptions = [
   { label: 'Male', value: 0 },
   { label: 'Female', value: 1 },
@@ -25,7 +25,7 @@ export default function WeightForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://127.0.0.1:8001/predict/weight', {
+      const res = await fetch(`${apiUrl}/predict/weight`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -51,7 +51,7 @@ export default function CaloriePredictionForm() {
 const handleSubmit = async (e) => {
   e.preventDefault();
   try {
-    const res = await fetch('http://127.0.0.1:8001/predict/calories', {
+    const res = await fetch(`${apiUrl}/predict/calories`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

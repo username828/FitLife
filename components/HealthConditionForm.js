@@ -22,7 +22,7 @@ export default function HealthConditionForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://127.0.0.1:8001/predict/health-condition', {
+      const res = await fetch(`${apiUrl}/predict/health-condition`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
