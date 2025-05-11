@@ -140,13 +140,14 @@ def predict_health_condition(model, new_data, label_encoder):
     # Predict class index (e.g., 0, 1, 2, 3)
     predicted_class = model.predict(new_data)  # Returns array([class_index])
     predicted_probs = model.predict_proba(new_data)  # Array of probabilities
-
-    predicted_class_index = int(predicted_class[0])  # Convert from array to int
-
-    # Use label encoder to get the original label
-    predicted_label = label_encoder.inverse_transform([predicted_class_index])[0]
-
-    return predicted_label, predicted_probs
+    condition_map = {
+    0: "None",  # Key 0 for no condition
+    1: "Hypertension",
+    2: "Diabetes",
+    3: "Asthma"  # Key 1 for any condition present
+    }
+    print(predicted_class, predicted_probs)
+    return condition_map[predicted_class[0]], predicted_probs
 
 
 # Initialize app
@@ -209,6 +210,8 @@ def predict_health(data: HealthInput):
     print(data.dict())  # Log the incoming data
     df = pd.DataFrame([data.dict()])
     label, probs = predict_health_condition(model_health, df, label_encoder)
+    
+    print(label)
     return {
         "predicted_condition": label,
         "probabilities": probs.tolist()  # Convert numpy array to list for JSON serialization
