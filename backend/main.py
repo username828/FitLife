@@ -67,6 +67,9 @@ original_std_calories=9.985552451615767
 
 original_std_weight=22.46180081682238
 original_mean_weight=94.92198077362113
+
+original_std_fitness=5.502485
+original_mean_fitness=9.524900
 #model_features = bundle["features"]
 
 # Pydantic models
@@ -140,13 +143,14 @@ def predict_health_condition(model, new_data, label_encoder):
     # Predict class index (e.g., 0, 1, 2, 3)
     predicted_class = model.predict(new_data)  # Returns array([class_index])
     predicted_probs = model.predict_proba(new_data)  # Array of probabilities
-
-    predicted_class_index = int(predicted_class[0])  # Convert from array to int
-
-    # Use label encoder to get the original label
-    predicted_label = label_encoder.inverse_transform([predicted_class_index])[0]
-
-    return predicted_label, predicted_probs
+    condition_map = {
+    0: "None",  # Key 0 for no condition
+    1: "Hypertension",
+    2: "Diabetes",
+    3: "Asthma"  # Key 1 for any condition present
+    }
+    print(predicted_class, predicted_probs)
+    return condition_map[predicted_class[0]], predicted_probs
 
 
 # Initialize app
@@ -168,8 +172,8 @@ model_calories.load_model("calories_burned_model.json")
 model_weight = xgb.XGBRegressor()
 model_weight.load_model("weight_model.json")
 
-# model_fitness = xgb.XGBRegressor()
-# model_fitness.load_model("fitness_model.json")
+model_fitness = xgb.XGBRegressor()
+model_fitness.load_model("fitness_model.json")
 
 model_health = xgb.XGBClassifier()
 model_health.load_model("health_condition_model.json")
@@ -197,18 +201,20 @@ def predict_weight(data: WeightInput):
     unscaled = pred * original_std_weight + original_mean_weight
     return {"weight_kg": round(float(unscaled), 2)}
 
-# @app.post("/predict/fitness")
-# def predict_fitness(data: FitnessInput):
-#     model_features = ['weight_kg', 'daily_steps', 'calories_burned']
-#     pred = predict_target(model_fitness, universal_scaler, model_features, **data.dict())
-#     unscaled = pred * original_std_fitness + original_mean_fitness
-#     return {"fitness_level": round(unscaled, 4)}
+@app.post("/predict/fitness")
+def predict_fitness(data: FitnessInput):
+    model_features = ['weight_kg', 'daily_steps', 'calories_burned']
+    pred = predict_target(model_fitness, scaler, model_features, **data.dict())
+    unscaled = pred * original_std_fitness + original_mean_fitness
+    return {"fitness_level": round(float(unscaled), 4)}
 
 @app.post("/predict/health-condition")
 def predict_health(data: HealthInput):
     print(data.dict())  # Log the incoming data
     df = pd.DataFrame([data.dict()])
     label, probs = predict_health_condition(model_health, df, label_encoder)
+    
+    print(label)
     return {
         "predicted_condition": label,
         "probabilities": probs.tolist()  # Convert numpy array to list for JSON serialization
@@ -216,4 +222,3 @@ def predict_health(data: HealthInput):
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8001)
-
