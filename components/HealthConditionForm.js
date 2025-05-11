@@ -87,7 +87,7 @@ export default function HealthConditionForm() {
         </button>
       </form>
 
-      {prediction && <div className="mt-6 text-green-700 text-xl font-bold text-center">📈 Predicted Health Condition: {prediction} kg</div>}
+      {prediction && <div className="mt-6 text-green-700 text-xl font-bold text-center">📈 Predicted Health Condition: {prediction}</div>}
       {error && <div className="mt-6 text-red-600 text-center font-semibold">⚠️ {error}</div>}
     </div>
   );

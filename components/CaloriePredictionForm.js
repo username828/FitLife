@@ -174,7 +174,7 @@ console.log("API response:", data); // Add this line
 
       {prediction && (
         <div className="mt-6 text-green-700 text-xl font-bold text-center">
-          🔥 Predicted Calories Burned: {prediction}
+          🔥 Predicted Calories Burned: {prediction} kcal
         </div>
       )}
       {error && (
