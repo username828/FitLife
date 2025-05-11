@@ -68,8 +68,10 @@ original_std_calories=9.985552451615767
 original_std_weight=22.46180081682238
 original_mean_weight=94.92198077362113
 
-original_std_fitness=5.502485
-original_mean_fitness=9.524900
+original_std_fitness=5.502484562089024
+
+original_mean_fitness=9.524899920168796
+
 #model_features = bundle["features"]
 
 # Pydantic models
