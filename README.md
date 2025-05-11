@@ -1,40 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🏋️‍♂️ Fitlife Health and Fitness Prediction Web App
 
-## Getting Started
+This project analyzes health and fitness patterns using a dataset that includes physiological, activity-based, and lifestyle-related metrics. The aim is to develop a predictive **Web Application** that helps users estimate:
 
-First, run the development server:
+- 🔢 **Weight**
+- 💪 **Fitness Level**
+- 🔥 **Calories Burned**
+- 🩺 **Health Condition**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Project Goals
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- Analyze and clean health-related data.
+- Apply machine learning models to make accurate predictions.
+- Balance imbalanced datasets using techniques like SMOTE and resampling.
+- Deploy a user-friendly web application for real-time health predictions.
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+## 🧠 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Standardization and label encoding for preprocessing.
+- Classification and regression models using XGBoost.
+- Class balancing using **SMOTE** and **Resampling**.
+- Visualization tools like **Seaborn** and **Matplotlib**.
+- Performance metrics such as Accuracy, F1 Score, RMSE, and R².
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Dataset
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+The dataset includes features such as:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Age, Gender
+- BMI, Weight
+- Sleep Time, Steps
+- Heart Rate, Stress Levels
+- Daily Activity Metrics
+- Lifestyle Inputs (e.g., diet, hydration)
 
-## Deploy on Vercel
+> Data preprocessing includes handling missing values, encoding categorical variables, and feature scaling.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+## 🛠️ Technologies Used
+
+- **Python**, **Pandas**, **NumPy**
+- **Scikit-learn**, **XGBoost**, **imblearn**
+- **Matplotlib**, **Seaborn** for data visualization
+- **Jupyter Notebook** for experimentation
+
+---
+
+## 🔍 Model Workflow
+
+1. Load and preprocess the data
+2. Balance classes using resampling and SMOTE
+3. Split data into training and testing sets
+4. Train models (XGBoost Classifier/Regressor)
+5. Evaluate using classification/regression metrics
+6. Save models and integrate with web interface
+
+---
+
+## 📊 Results
+
+- Classification models used for predicting **health condition** 
+- Regression models for **weight**, **calories burned** and **fitness level**
+
+## Source
+https://www.kaggle.com/datasets/jijagallery/fitlife-health-and-fitness-tracking-dataset
